@@ -1,7 +1,7 @@
 <template>
 <the-nav-bar/>
-
 <div class="container bg-gray-800 w-1/4">Title</div>
+<router-view/>
 </template>
 
 <script lang="ts">
