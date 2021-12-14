@@ -93,7 +93,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useLoginForm } from "../use/login";
 export default {
   setup() {

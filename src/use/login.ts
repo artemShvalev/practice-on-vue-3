@@ -1,12 +1,19 @@
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import { computed, watch } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export function useLoginForm() {
   const { handleSubmit, isSubmitting, submitCount } = useForm();
 
-  const onSubmit = handleSubmit((values) => {
+  const store = useStore();
+  const router = useRouter();
+
+  const onSubmit = handleSubmit(async (values) => {
     console.log(values);
+    await store.dispatch("auth/login", values);
+    router.push("/");
   });
 
   const isTooManyAttempts = computed(() => submitCount.value >= 3);
