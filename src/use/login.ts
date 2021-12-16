@@ -4,16 +4,20 @@ import { computed, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-export function useLoginForm() {
+export function useLoginForm(){
   const { handleSubmit, isSubmitting, submitCount } = useForm();
 
   const store = useStore();
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
+    try {
     await store.dispatch("auth/login", values);
     router.push("/");
+    // eslint-disable-next-line no-empty
+    } catch(e) {
+    }
+
   });
 
   const isTooManyAttempts = computed(() => submitCount.value >= 3);

@@ -34,7 +34,7 @@
                 v-for="item in navigation"
                 :key="item.name"
                 :href="item.href"
-                @click="logout()"
+                @click="logout"
                 :class="[
                   item.current
                     ? 'bg-gray-900 text-white'
@@ -57,13 +57,13 @@ import { Disclosure, DisclosureButton } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import {defineComponent} from "vue"
+import { defineComponent } from "vue";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
   { name: "Applications", href: "#", current: false },
   { name: "Help", href: "/help", current: false },
-  { name: "Exit", href: "#", current: false,  },
+  { name: "Exit", href: "#", current: false },
 ];
 
 export default defineComponent({
@@ -75,13 +75,11 @@ export default defineComponent({
       navigation,
       logout: () => {
         store.commit("auth/logout");
-        if (navigation[3]) {
-          router.push("/auth");
-        }
+        router.push("/auth");
       },
     };
   },
-    components: {
+  components: {
     Disclosure,
     DisclosureButton,
     MenuIcon,
