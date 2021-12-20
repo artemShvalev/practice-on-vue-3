@@ -9,5 +9,10 @@ module.exports = {
     plugins: [
       require("@tailwindcss/forms"),
     ],
+    extends: {
+      zIndex: {
+        '1000': '1000',
+      }
+    }
   },
 };

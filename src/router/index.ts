@@ -18,6 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Auth.vue"),
     meta: {
       layout: "auth",
+      auth: false
     },
   },
   {
@@ -34,6 +35,8 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active'
 });
 
 router.beforeEach((to, from, next) => {
@@ -41,7 +44,7 @@ router.beforeEach((to, from, next) => {
 
   if (requireAuth && store.getters["auth/isAuthenticated"]) {
     next();
-  } else if (requireAuth && !!store.getters["auth/isAuthenticated"]) {
+  } else if (requireAuth && !store.getters["auth/isAuthenticated"]) {
     next("/auth?message=auth");
   } else {
     next();

@@ -4,7 +4,6 @@ import { error } from "@/utils/error";
 
 const tokenKey = "jwt-token";
 
-
 export default {
   namespaced: true, //  для того что бы название экшнов были локальными
   state(): unknown {
@@ -24,14 +23,22 @@ export default {
   },
   actions: {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    async login({ commit }: any, {...payload }): Promise<any> {
+    async login({ commit, dispatch }: any, { ...payload }): Promise<any> {
       try {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FB_KEY}`;
         const { data } = await axios.post(url, payload);
         commit("setToken", data.idToken);
+        commit('clearMessage', null, {root: true})
       } catch (e: ?unknown) {
-        console.log(error(e.response.data.error.message));
-        throw new Error()
+        dispatch(
+          "setMessage",
+          {
+            value: error(e.response.data.error.message),
+            type: "danger",
+          },
+          { root: true }
+        );
+        throw new Error();
       }
     },
   },
