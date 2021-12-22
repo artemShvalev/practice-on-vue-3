@@ -61,14 +61,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 import { useRequestForm } from "../../use/request-form";
 
 export default defineComponent({
   emits: ['created'],
   setup(_, {emit}) {
+  const store = useStore()
     const submit = async (values: any) => {
+      await store.dispatch('request/create', values)
       emit('created')
-      console.log(values)
     }
 
     return {

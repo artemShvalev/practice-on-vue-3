@@ -8,7 +8,7 @@
         </button>
       </template>
     </AppPage>
-    <RequestTable :requests="[]"/>
+    <RequestTable :requests="requests"/>
 
 
     <teleport to="body">
@@ -20,22 +20,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import RequestTable from '@/components/request/requestTable.vue';
 import AppPage from '@/components/ui/AppPage.vue'
 import AppModal from '@/components/ui/AppModal.vue'
 import RequestModal from '@/components/request/requestModal.vue'
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'Home',
   components: {RequestTable, AppPage, AppModal, RequestModal},
   setup(){
     const modal = ref(false);
+    const store = useStore()
 
-
+    const requests = computed(() => store.getters['request/requests'])
 
     return{ 
-      modal
+      modal,
+      requests
     }
   }
 });
