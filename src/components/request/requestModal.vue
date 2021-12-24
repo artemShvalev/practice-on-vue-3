@@ -42,7 +42,7 @@
 
       <div>
         <label class="text-2xl mb-2" for="status">Статус:</label>
-        <select id="staus" v-model="status">
+        <select id="status" v-model="status">
           <option value="done">Завершен</option>
           <option value="cancelled">Отменен</option>
           <option value="active">Активен</option>
@@ -61,14 +61,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 import { useRequestForm } from "../../use/request-form";
 
 export default defineComponent({
   emits: ['created'],
   setup(_, {emit}) {
+  const store = useStore()
     const submit = async (values: any) => {
+      await store.dispatch('request/create', values)
       emit('created')
-      console.log(values)
     }
 
     return {

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw, isNavigationFailure } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "../store";
 
@@ -18,13 +18,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Auth.vue"),
     meta: {
       layout: "auth",
-      auth: false
+      auth: false,
     },
   },
   {
     path: "/help",
     name: "Help",
     component: () => import("../views/Help.vue"),
+    meta: {
+      layout: "main",
+      auth: true,
+    },
+  },
+  {
+    path: "/request/:id",
+    name: "Request",
+    component: () => import("../views/Request.vue"),
     meta: {
       layout: "main",
       auth: true,
@@ -50,5 +59,10 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+    if (isNavigationFailure) {
+      // отображение уведомления пользователю
+      console.log(isNavigationFailure);
+    }
 
 export default router;
