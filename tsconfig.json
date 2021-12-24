@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "esnext",
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "removeComments": true,
     "importHelpers": true,
@@ -26,7 +26,11 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scripthost",
+      "ES6",
+      "DOM.Iterable",
+      "ScriptHost",
+      "ES2016.Array.Include"
     ]
   },
   "include": [

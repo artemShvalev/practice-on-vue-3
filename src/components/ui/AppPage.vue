@@ -1,4 +1,7 @@
 <template>
+<div v-if="back">
+  <router-link to="/">Вернуться к списку заявок</router-link>
+</div>
   <div class="container">
     <h1 class="text-3xl">
       {{ title }}
@@ -16,6 +19,10 @@ export default defineComponent({
     title: {
       type: String,
       required: true,
+    },
+    back: {
+      type: Boolean,
+      default: false
     },
   },
   setup(props) {

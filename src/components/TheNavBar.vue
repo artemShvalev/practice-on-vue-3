@@ -1,4 +1,3 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -27,6 +26,7 @@
               src="@/assets/img/p.jpg"
               alt="Workflow"
             />
+            <div @click.prevent="openSidebar"> open <i>mdi-open</i></div>
           </div>
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4">
@@ -35,6 +35,7 @@
                 :key="item.name"
                 :href="item.href"
                 @click="logout"
+
                 :class="[
                   item.current
                     ? 'bg-gray-900 text-white'
@@ -60,10 +61,10 @@ import { useStore } from "vuex";
 import { defineComponent } from "vue";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
+  { name: "Dashboard", to: "/", current: true },
   { name: "Applications", href: "#", current: false },
-  { name: "Help", href: "/help", current: false },
-  { name: "Exit", href: "#", current: false },
+  { name: "Help", to: "/help", current: false },
+  { name: "Exit", to: "/auth", current: false },
 ];
 
 export default defineComponent({
@@ -74,9 +75,16 @@ export default defineComponent({
     return {
       navigation,
       logout: () => {
-        store.commit("auth/logout");
-        router.push("/auth");
+        if (navigation[3]) {
+          store.commit("auth/logout");
+          router.push("/auth");
+        } else {
+          alert(" You do not exist out is matrix:)");
+        }
       },
+      openSidebar: () => {
+        store.commit('openSidebar')
+      }
     };
   },
   components: {
