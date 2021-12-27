@@ -1,10 +1,8 @@
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function useRequestForm(fn: any) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { isSubmiting, handleSubmit }: any = useForm({
+export function useRequestForm(fn) {
+  const { isSubmiting, handleSubmit } = useForm({
     initialValues: {
       status: 'active'
     }

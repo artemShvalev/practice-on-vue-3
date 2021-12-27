@@ -9,16 +9,15 @@
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
-export default {
+<script lang="ts">
+import { ref, defineComponent } from "vue";
+export default defineComponent({
   name: "QuestionItem",
   props: ["question"],
   setup() {
-      return{ 
-          isOpen: ref(false)
-      }
-
+    return {
+      isOpen: ref(false),
+    };
   },
-};
+});
 </script>

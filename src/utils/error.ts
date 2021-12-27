@@ -5,6 +5,6 @@ const errorCodes = {
   INVALID_PASSWORD: "Не верный пароль попробуйте еще раз",
   auth: 'Пожалуйста войдите в систему'
 };
-export function error(code: number): any {
+export function error(code: any): any {
   return errorCodes[code] ? errorCodes[code] : 'unknow error';
 }

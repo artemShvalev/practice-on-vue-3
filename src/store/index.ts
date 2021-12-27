@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
 
 export default createStore({
   plugins,
-  state(): unknown {
+  state(){
     return {
       message: null,
       sidebar: false,
@@ -28,15 +28,15 @@ export default createStore({
       state.sidebar = true;
     },
     closeSidebar(state) {
-      state.sidebar;
+      state.sidebar = false;
     },
   },
   actions: {
     setMessage({ commit }, message) {
-      commit("setMessage", message);
+      commit("setMessage", message)
       setTimeout(() => {
         commit("clearMessage");
-      }, 10000);
+      }, 5000);
     },
   },
   modules: {

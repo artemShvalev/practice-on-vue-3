@@ -1,19 +1,16 @@
 <template>
-  <AppMessage />
-  <router-view />
+  <div class="container">
+    <AppMessage />
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import AppMessage from "@/components/ui/appMessage.vue";
 
-export default defineComponent({
-  components: { AppMessage },
-
-  setup() {
-    return {};
-  },
-});
+export default {
+  components: { AppMessage }
+};
 </script>
 
 <style></style>

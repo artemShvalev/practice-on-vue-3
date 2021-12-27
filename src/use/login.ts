@@ -15,9 +15,9 @@ export function useLoginForm(){
     await store.dispatch("auth/login", values);
     router.push("/");
     // eslint-disable-next-line no-empty
-    } catch(e) {
+    } finally{
+      router.push('/')
     }
-
   });
 
   const isTooManyAttempts = computed(() => submitCount.value >= 3);

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { error } from "@/utils/error";
 
@@ -6,48 +5,43 @@ const tokenKey = "jwt-token";
 
 export default {
   namespaced: true, //  для того что бы название экшнов были локальными
-  state(): unknown {
+  state(){
     return {
       token: localStorage.getItem(tokenKey),
     };
   },
   mutations: {
-    setToken(state: any, token: string): void {
+    setToken(state, token) {
       state.token = token;
       localStorage.setItem(tokenKey, token);
     },
-    logout(state: any): void {
+    logout(state){
       state.token = null;
       localStorage.removeItem(tokenKey);
     },
   },
   actions: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    async login({ commit, dispatch }: any, { ...payload }): Promise<any> {
+    async login({ commit, dispatch }, payload ) {
       try {
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FB_KEY}`;
-        const { data } = await axios.post(url, payload);
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUP?key=${process.env.VUE_APP_FB_KEY}`
+        const { data } = await axios.get(url, { ...payload, returnSecureToken: true });
         commit("setToken", data.idToken);
-        commit('clearMessage', null, {root: true})
-      } catch (e: ?unknown) {
-        dispatch(
-          "setMessage",
-          {
+        commit('clearMessage', null, { root: true })
+      } catch (e) {
+        dispatch("setMessage", {
             value: error(e.response.data.error.message),
             type: "danger",
-          },
-          { root: true }
-        );
+        }, { root: true });
         throw new Error();
       }
     },
   },
   getters: {
-    token(state: any) {
+    token(state) {
       return state.token;
     },
-    isAuthenticated(state: any, getters: any) {
-      return !!state.token;
+    isAuthenticated(_, getters) {
+      return !!getters.token;
     },
   },
 };

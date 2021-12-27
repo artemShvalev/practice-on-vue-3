@@ -9,39 +9,28 @@ export default {
     };
   },
   mutations: {
-    setRequests(state: any, requests: any) {
+    setRequests(state, requests) {
       state.requests = requests;
     },
-    addRequest(state: any, request: any) {
+    addRequest(state, request) {
       state.requests.push(request);
     },
   },
   actions: {
-    async create({ commit, dispatch }: any, payload: any) {
+    async create({ commit, dispatch }, payload) {
       try {
         const token = store.getters["auth/token"];
-        const { data } = await axios.post(
-          `/requests.json?auth=${token}`,
-          payload
-        );
+        const { data } = await axios.post(`/requests.json?auth=${token}`, payload);
         commit("addRequest", { ...payload, id: data.name });
-        dispatch(
-          "setMessage",
-          {
-            value: "Заявка успешно добавлена",
-            type: "text-green-500",
-          },
-          { root: true }
-        );
+        dispatch("setMessage", {
+          value: "Заявка успешно добавлена",
+          type: "text-green-500",
+        },{ root: true });
       } catch (e) {
-        dispatch(
-          "setMessage",
-          {
-            value: `Ошибка ${e.message}`,
-            type: ".text-red-500",
-          },
-          { root: true }
-        );
+        dispatch("setMessage", {
+          value: `Ошибка ${e.message}`,
+          type: ".text-red-500",
+        },{ root: true });
       }
     },
     async load({ commit, dispatch }) {
@@ -51,11 +40,10 @@ export default {
         const requests = Object.keys(data).map((id) => ({ ...data[id], id }));
         commit("setRequests", requests);
       } catch (e) {
-        dispatch(
-          "setMessage",
-          { value: `Ошибка ${e.message}`, type: "text-red-500" },
-          { root: true }
-        );
+        dispatch("setMessage", {
+          value: `Ошибка ${e.message}`,
+          type: "text-red-500"
+      },{ root: true });
       }
     },
     async loadOne({ commit, dispatch }, id) {
@@ -78,13 +66,12 @@ export default {
         dispatch('setMessage', {
           value: 'заявка удалена',
           type: 'text-green-500'
-        }, {root: true})
+        }, { root: true })
       } catch (e) {
-        dispatch(
-            "setMessage",
-            { value: `Ошибка ${e.message}`, type: "text-red-500" },
-            { root: true }
-        );
+        dispatch("setMessage", {
+          value: `Ошибка ${e.message}`,
+          type: "text-red-500"
+        }, { root: true });
       }
     },
     async update({ dispatch }, request) {
@@ -94,18 +81,17 @@ export default {
         dispatch('setMessage', {
           value: 'заявка обновлена',
           type: 'text-green-500'
-        }, {root: true})
+        }, { root: true })
       } catch (e) {
-        dispatch(
-            "setMessage",
-            { value: `Ошибка ${e.message}`, type: "text-red-500" },
-            { root: true }
-        );
+        dispatch("setMessage", {
+          value: `Ошибка ${e.message}`,
+          type: "text-red-500",
+        }, { root: true });
       }
     },
   },
   getters: {
-    requests(state: any) {
+    requests(state) {
       return state.requests;
     },
   },

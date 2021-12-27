@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw, isNavigationFailure } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "../store";
 
@@ -60,9 +60,5 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-    if (isNavigationFailure) {
-      // отображение уведомления пользователю
-      console.log(isNavigationFailure);
-    }
 
 export default router;

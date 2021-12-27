@@ -68,7 +68,7 @@ export default defineComponent({
   emits: ['created'],
   setup(_, {emit}) {
   const store = useStore()
-    const submit = async (values: any) => {
+  const submit = async values => {
       await store.dispatch('request/create', values)
       emit('created')
     }

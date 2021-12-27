@@ -3,7 +3,7 @@
     class="min-h-screen flex items-center justify-center bg-gray-100 py-6"
     v-if="sidebar"
   >
-  <div @click="closeSidebar">&times;</div>
+  <div @click="close">&times;</div>
 
   
     <div class="flex w-full max-w-xs p-4 bg-white">
@@ -59,29 +59,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   setup() {
     const store = useStore();
-
     const sidebar = computed(() => store.state.sidebar);
-
-    const openSidebar = () => {
-      store.commit("openSidebar");
-    };
-    const closeSidebar = () => {
-      store.commit("closeSidebar");
-    };
     return {
-      openSidebar,
-      closeSidebar,
       sidebar,
+      close: () => store.commit("closeSidebar"),
     };
   },
-};
+});
 </script>
 
 <style></style>

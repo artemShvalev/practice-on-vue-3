@@ -1,5 +1,4 @@
 <template>
-  <!-- component -->
   <div class="container">
     <h1 class="my-8 text-center text-4xl" v-if="requests.length === 0">
       Заявок нет
